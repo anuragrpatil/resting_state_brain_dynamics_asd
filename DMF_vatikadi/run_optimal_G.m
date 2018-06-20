@@ -1,19 +1,20 @@
 clear all
 
-scPath = hdf5read('Human_68.hdf5','/C');
-fcPath =  hdf5read('Human_68.hdf5','/CC');
-% load('./Connectivity_significant_matrix.mat');
-% C_read = ConSig;
-% C_normalize = C_read(:,:,9)/norm(C_read(:,:,9));
-% C = C_normalize(:,:);
-%  [m nAreas] = size(C);
-% C(1:nAreas+1:nAreas*nAreas) = 0;
-% scPath = C;
-% 
-% C_emp_read = ConSigEmp;
-% C_emp_read(isinf(C_emp_read))=1;
-% C_emp = C_emp_read(:,:,9)/norm(C_emp_read(:,:,9));
-% fcPath = C_emp;
+% scPath = hdf5read('Human_68.hdf5','/C');
+% fcPath =  hdf5read('Human_68.hdf5','/CC');
+load('./Connectivity_significant_matrix.mat');
+C_read = ConSig;
+C_normalize = C_read(:,:,9)/norm(C_read(:,:,9));
+C = C_normalize(:,:);
+ [m nAreas] = size(C);
+C(1:nAreas+1:nAreas*nAreas) = 0;
+scPath = C;
+
+C_emp_read = ConSigEmp;
+
+C_emp = C_emp_read(:,:,9)/norm(C_emp_read(:,:,9));
+C_emp(isinf(C_emp))=1;
+fcPath = C_emp;
 
 startG = 0.5;
 endG = 0.5;

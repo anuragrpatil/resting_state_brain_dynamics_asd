@@ -28,13 +28,13 @@ function [correleation maxfr]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
 % C_emp = zscore(C_read(:,:,9));
 
 
-% 
+% % 
 % C_read = hdf5read('Human_68.hdf5','/C');
-
+% 
 % C = C_read;
 %  [m nAreas] = size(C);
 % C(1:nAreas+1:nAreas*nAreas) = 0;
-
+% 
 % C_emp_read = hdf5read('Human_68.hdf5','/CC');
 % C_emp = C_emp_read;
 
@@ -45,7 +45,7 @@ function [correleation maxfr]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
 %     tend = 120000;
     T = 0:dt:tend;
 %     G = 0.5;
-
+ [m nAreas] = size(C);
 S = zeros(tend*(1/dt),length(C),length(G));
 S_persec = zeros(tend*dt,length(C),length(G));
 % B = zeros(tend*dt,length(C),length(G)); 
@@ -54,12 +54,14 @@ S_persec = zeros(tend*dt,length(C),length(G));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Compute DMF%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     
-    [S H x] = DMF_eulers_explicit(T,dt,C,G,noiseAmp);
+%     [S H x] = DMF_eulers_explicit(T,dt,C,G,noiseAmp);
 
 
 
      S_persec = S(1:10:end,:);
-     frN=H(1:10:end,:);
+     [S_persec frN] = DMF_eulers_explicit(T,dt,C,G,noiseAmp);
+     
+%      frN=H(1:10:end,:);
      maxfr=max(frN);
    
     % savetofile('Hvalues',H,G);

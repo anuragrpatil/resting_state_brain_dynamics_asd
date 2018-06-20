@@ -1,29 +1,27 @@
-clear all
-load('./Connectivity_significant_matrix.mat');
-C = ConSig(:,:,1);
-U=unique(ConSig(:,:,1));
+function X = normalize_data(C_read,flag)
+
+
+% load('./Connectivity_significant_matrix.mat');
+% C = ConSig(:,:,1);
+% U=unique(ConSig(:,:,1));
+% R=sort(randn(1,length(C)));
+
+C = C_read;
+U = unique(C_read);
 R=sort(randn(1,length(C)));
-Z=zeros(105,105);
 
-% for i=1:1:105*105
-%     
-%     minMatrixC = min(C(:));
-%     [rowC,colC] = find(C==minMatrixC);
-%    
-%     minMatrixR = min(R(:));
-%     [rowR,colR] = find(R==minMatrixR);
-%     
-%     Z(rowC,colC)=R(rowR,colR);
-%     C(rowC,colC)=10^5;
-%     R(rowR,colR)=10^5;
-%     Z(rowC,colC);
-%     
-% end 
+% for i=1:length(U)
+% C(C==U(i))=R(i); 
+% end
+
+%  X = (C-min(min(C)))/(max(max(C))-min(min(C)))*0.2+0.4;
+%  X = zscore(C_read);
+
+Z = reshape(C,[105*105 1]);
+if flag==1
+X = 0.5+ (C-mean(Z))*0.1/std(Z);
+elseif flag==2
+X = 0+ (C-mean(Z))*1/std(Z);   
+end
 
 
-
-for i=1:length(U)
-C(C==U(i))=R(i); 
-end 
-
-X = (C-min(min(C)))/(max(max(C))-min(min(C)))*0.2+0.4;
