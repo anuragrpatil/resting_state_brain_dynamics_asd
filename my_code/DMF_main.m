@@ -29,14 +29,14 @@ function [correleation maxfr]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
 
 
 % 
-C_read = hdf5read('Human_68.hdf5','/C');
+% C_read = hdf5read('Human_68.hdf5','/C');
 
-C = C_read;
- [m nAreas] = size(C);
-C(1:nAreas+1:nAreas*nAreas) = 0;
+% C = C_read;
+%  [m nAreas] = size(C);
+% C(1:nAreas+1:nAreas*nAreas) = 0;
 
-C_emp_read = hdf5read('Human_68.hdf5','/CC');
-C_emp = C_emp_read;
+% C_emp_read = hdf5read('Human_68.hdf5','/CC');
+% C_emp = C_emp_read;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
