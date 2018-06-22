@@ -1,4 +1,4 @@
-function [fc, frN]=DMF_excitatory(sc_td,simTime,dt,G,noiseAmp)
+function [fc, frN,bds]=DMF_excitatory(sc_td,simTime,dt,G,noiseAmp)
 
 %scPath     : structural connectivity matrix path
 %simTime    : simulation time

@@ -1,4 +1,4 @@
-function [correleation maxfr]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
+function [correleation maxfr FC bds]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Load file%%%%%%%%%%%%%%%%%%%%
@@ -92,16 +92,19 @@ S_persec = zeros(tend*dt,length(C),length(G));
     
     disp('Bold signal has been found')
     %%%%%%%%%%%%%%%%%%%Correleation coefficient%%%%%%%%%%%%%%%%%%%%%%%
-    FC = corrcoef(bds);          % BOLD correlation matrix = Simulated Functional Connectivity
+    FC = corrcoef(bds,'rows','pairwise');          % BOLD correlation matrix = Simulated Functional Connectivity
     
 
     FC_sim=atanh(FC(find(tril(FC,-1))));
+%     FC_sim=zscore(FC(find(tril(FC,-1))));
     FC_sim(isinf(FC_sim))=1;     %replace infinte values by 1
+    
     %correlation coeficient between simulated functional connectivity and
     %empirical functional connectivity
     FC_emp = atanh(C_emp(find(tril(C_emp,-1))));
+%     FC_emp = zscore(C_emp(find(tril(C_emp,-1))));
     FC_emp(isinf(FC_emp))=1;
-    correleation = corrcoef(FC_sim,FC_emp);
+    correleation = corrcoef(FC_sim(2:end),FC_emp);
     
     correleation = correleation(1,2);
     

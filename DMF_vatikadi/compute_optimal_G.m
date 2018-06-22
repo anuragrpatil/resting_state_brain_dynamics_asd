@@ -1,10 +1,11 @@
-function [fcCorrs] = compute_optimal_G(sc_td, fc_td, startG,endG,incG,simTime,dt,noiseAmp,saveFigPath)
+function [fcCorrs maxfrNs bds] = compute_optimal_G(sc_td, fc_td, startG,endG,incG,simTime,dt,noiseAmp,saveFigPath)
     fc_emp = fc_td;
 %     nAreas = size(fc_emp,1);
     G = startG:incG:endG;
 %     nIters = 1;
     fcCorrs = zeros(length(G),1);
     fcs = cell(length(G),1);
+    bds = cell(length(G),1);
     maxfrNs = cell(length(G),1);
 %     avgFC = zeros(nAreas,nAreas);
     parfor i = 1:length(G)
@@ -12,7 +13,7 @@ function [fcCorrs] = compute_optimal_G(sc_td, fc_td, startG,endG,incG,simTime,dt
 %         parfor j = 1:nIters
 %             [fcs{j}, frN] = DMF_dev(scPath,fic,ffi,simTime,dt,G,noiseAmp,lesionAreas,ficWeights,setFICWeights);
 %         end
-         [fcs{i}, frN] = DMF_excitatory(sc_td, simTime,dt,Gcurr,noiseAmp);
+         [fcs{i}, frN,bds{i}] = DMF_excitatory(sc_td, simTime,dt,Gcurr,noiseAmp);
 %        [fcs{i}, frN]=DMF_dev(scPath,fic,ffi,simTime,dt,Gcurr,noiseAmp,[],[],false);
 %         for k = 1:nIters
 %            avgFC = avgFC + fcs{k}; 

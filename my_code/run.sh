@@ -8,5 +8,5 @@
 #SBATCH --mail-type=END
 
 module add matlab/R2017b
-matlab -nodisplay -r "DMF_main; quit"
+matlab -nodisplay -r "run_optimal_G; quit"
 

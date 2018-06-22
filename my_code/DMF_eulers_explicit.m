@@ -1,15 +1,16 @@
 function [S_persec frN] = DMF_eulers_explicit(T,dt,C,G,noiseAmp)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Parameters for DMF%%%%%%%%%%%%%%%%%%
-w = 0.9 ;          % wEE or w+ synpatics weight for intra area excitatory-excitatory
-% w = 1.4
+w = 0.65 ;          % wEE or w+ synpatics weight for intra area excitatory-excitatory
+%  w = 1.4
 a= 270 ;
 b= 108;
 d = 0.154; 
-JN = 0.2609; % synaptic coupling for NMDA synapses
-% JN = 0.15
+ JN = 0.2609; % synaptic coupling for NMDA synapses
+%  JN = 0.15
 gamma = 0.641;
-I0 = 0.3;          % external input current
+I0 = 0.3;
+% I0 = 0.24;          % external input current
 % I0 = 0.382
 sigma = noiseAmp;
 taon = 100;        % time constant for NMDA synapses
