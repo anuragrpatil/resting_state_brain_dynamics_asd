@@ -20,10 +20,10 @@ taon = 100;        % time constant for NMDA synapses
 % g=0.087;
 % I=177.;
 % c=615.; 
-% 
-% JN=0.15;
-% J=0.9*ones(nAreas,1);
-% 
+% % 
+% % JN=0.15;
+%  J=0.9*ones(1,nAreas);
+% % 
 % Jexte=1.0;
 % Jexti=0.7;
 
@@ -85,27 +85,25 @@ for t = 1:1:(length(T)-1)
 
 
 %%%%%%%%%%%%%%%%%%%inhibition control added%%%%%%%%%%%%%%%%%%%        
-%         xn(t,:)= I0*Jexte+w*JN*Sn(t,:)+G*JN*(C*Sn(t,1:nAreas)')'+I0;
-%         xg(t,:)= I0*Jexti+JN*Sg(t,:)+JN*Sn(t,:)-Sg(t,:);
-% 
-%         Hn(t,:)= f_Hn(xn(t,:));
-%         Hg(t,:)= f_Hg(xg(t,:));
-% 
-%         
-%         Sn(t+1,:) = Sn(t,:)+dt*f_Sn(Sn(t,:),Hn(t,:))+dt^(1/2)*sigma*randn(1,nAreas);
-%         if Sn(t+1,:)>1
-%          Sn(Sn(t+1,:)>1)= 1; 
-%         elseif Sn(t+1,:)<0
-%             Sn(Sn(t+1,:)<0)=0;
-%         end 
-% 
-%         Sg(t+1,:)=Sg(t,:)+dt*(-Sg(t,:)/taog+Hg(t,:)./1000.)+sqrt(dt)*sigma*randn(1,nAreas);
-%         if Sg(t+1,:)>1
-%          Sg(Sg(t+1,:)>1)= 1; 
-%         elseif Sg(t+1,:)<0
-%             Sg(Sg(t+1,:)<0)=0;
-%         end 
-%        
+%       xn=I0*Jexte+w*JN*Sn+w*JN*(C*Sn')'-J.*Sg;
+%       xg=I0*Jexti+JN*Sn-Sg;
+%       Hn = f_Hn(xn);
+%       Hg = f_Hg(xg);
+%       Sn=Sn+dt*(-Sn/taon+(1-Sn)*gamma.*Hn./1000.)+sqrt(dt)*sigma*randn(1,nAreas);
+%       Sn(Sn>1) = 1; 
+%       Sn(Sn<0) = 0;             
+%       Sg=Sg+dt*(-Sg/taog+Hg./1000.)+sqrt(dt)*sigma*randn(1,nAreas);
+%       Sg(Sg>1) = 1;        
+%       Sg(Sg<0) = 0;
+%       j=j+1;
+%       if j==10
+%        nn=nn+1; 
+%        S_persec(nn,:)=Sn;
+       
+%        frN(nn,:) = Hn;
+%        j=0;
+%       end
+% %        
          
         
         
@@ -114,6 +112,8 @@ for t = 1:1:(length(T)-1)
    
  
 end
+
+
 
     
    

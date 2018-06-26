@@ -1,4 +1,4 @@
-function [correleation maxfr FC bds]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
+function [correleation maxfr]= DMF_main(C,C_emp,simTime,dt,G,noiseAmp)
  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Load file%%%%%%%%%%%%%%%%%%%%
@@ -59,7 +59,7 @@ S_persec = zeros(tend*dt,length(C),length(G));
 
 
      S_persec = S(1:10:end,:);
-     [S_persec frN] = DMF_eulers_explicit(T,dt,C,G,noiseAmp);
+     [S_persec frN] = DMF_eulers_explicit_EIC(T,dt,C,G,noiseAmp);
      
 %      frN=H(1:10:end,:);
      maxfr=max(frN);

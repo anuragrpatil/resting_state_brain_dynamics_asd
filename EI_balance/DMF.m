@@ -40,7 +40,7 @@ fc = atanh(FC_emp(Isubdiag));
 %SC_cap_agg_counts=(weights.SC_cap_agg_bwflav2); %Normalization factor across all-SC 
 
 %C=Cnew(Order,Order);
-%C = weights.C(1:66,1:66);
+% C = weights.C(1:68,1:68);
 %C=SC_cap_agg_counts(1:68,1:68);
 
 %Isubdiag = find(tril(ones(68),-1)); % Indexes of all the values below the diagonal.
@@ -56,9 +56,9 @@ ds   = 100;    % BOLD downsampling rate
 %%%%%%%%%
 
 dt=0.1;
-tmax=120000;
+tmax=1200000;
 tspan=0:dt:tmax;
-tmax1=8000;
+tmax1=1200000;
 tspan1=0:dt:tmax1;
 
 taon=100;
@@ -83,88 +83,88 @@ we=1.52;
 %for we=G;
 %we
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% k=1;
-% sn=0.001*ones(Nnew,1);
-% sg=0.001*ones(Nnew,1);
-% Iext=zeros(Nnew,1);
-% delta=0.02*ones(Nnew,1);
-% 
-% for k=1:10000
-%  sn=0.001*ones(Nnew,1);
-%  sg=0.001*ones(Nnew,1);
-%  nn=1;
-%  j=0;
-% for i=2:1:length(tspan1)
-%   xn=I0*Jexte+w*JN*sn+we*JN*C*sn-J.*sg;
-%   xg=I0*Jexti+JN*sn-sg;
-%   rn=phie(xn);
-%   rg=phii(xg);
-%   sn=sn+dt*(-sn/taon+(1-sn)*gamma.*rn./1000.)+sqrt(dt)*sigma*randn(Nnew,1);
-%   sn(sn>1) = 1;  
-%   sn(sn<0) = 0;      
-%   sg=sg+dt*(-sg/taog+rg./1000.)+sqrt(dt)*sigma*randn(Nnew,1);
-%   sg(sg>1) = 1;        
-%   sg(sg<0) = 0;
-%   j=j+1;
-%   if j==10
-%    curr(nn,:)=xn'-125/310;
-%    neuro_act2(nn,:)=rn';
-%    nn=nn+1;
-%    j=0;
-%   end
-%  end
-% 
-%  currm=mean(curr(1000:end,:),1);
-%  flag=0;
-%  for n=1:1:Nnew
-%   %if (n==2&3) && abs(currm(n)+0.026)>0.005 
-%   if abs(currm(n)+0.026)>0.005
-%    if currm(n)<-0.026 
-%     J(n)=J(n)-delta(n);
-%     delta(n)=delta(n)-0.001;
-%     if delta(n)<0.001;
-%        delta(n)=0.001;
-%     end
-%    else 
-%     J(n)=J(n)+delta(n);
-%    end
-%   else
-%    flag=flag+1;
-%   end
-%  end
-% 
-%  if flag==Nnew
-%   break;
-%  end
-% end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+k=1;
+sn=0.001*ones(Nnew,1);
+sg=0.001*ones(Nnew,1);
+Iext=zeros(Nnew,1);
+delta=0.02*ones(Nnew,1);
+
+for k=1:500
  sn=0.001*ones(Nnew,1);
  sg=0.001*ones(Nnew,1);
-%Iext = [0.0;0.0;0.0;0.01;0.0;0.0;0.0;0.0;0.0;0.0];
- 
  nn=1;
  j=0;
-    
- for i=2:1:length(tspan)
-     
+for i=2:1:length(tspan1)
   xn=I0*Jexte+w*JN*sn+we*JN*C*sn-J.*sg;
   xg=I0*Jexti+JN*sn-sg;
   rn=phie(xn);
   rg=phii(xg);
   sn=sn+dt*(-sn/taon+(1-sn)*gamma.*rn./1000.)+sqrt(dt)*sigma*randn(Nnew,1);
-  sn(sn>1) = 1; 
-  sn(sn<0) = 0;             
+  sn(sn>1) = 1;  
+  sn(sn<0) = 0;      
   sg=sg+dt*(-sg/taog+rg./1000.)+sqrt(dt)*sigma*randn(Nnew,1);
   sg(sg>1) = 1;        
   sg(sg<0) = 0;
   j=j+1;
   if j==10
-   curr_new(nn,:)=xn'-125/310;   
-   neuro_act(nn,:)=sn';
+   curr(nn,:)=xn'-125/310;
+   neuro_act2(nn,:)=rn';
    nn=nn+1;
    j=0;
   end
  end
+
+ currm=mean(curr(1000:end,:),1);
+ flag=0;
+ for n=1:1:Nnew
+  %if (n==2&3) && abs(currm(n)+0.026)>0.005 
+  if abs(currm(n)+0.026)>0.005
+   if currm(n)<-0.026 
+    J(n)=J(n)-delta(n);
+    delta(n)=delta(n)-0.001;
+    if delta(n)<0.001;
+       delta(n)=0.001;
+    end
+   else 
+    J(n)=J(n)+delta(n);
+   end
+  else
+   flag=flag+1;
+  end
+ end
+
+ if flag==Nnew
+  break;
+ end
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  sn=0.001*ones(Nnew,1);
+%  sg=0.001*ones(Nnew,1);
+% %Iext = [0.0;0.0;0.0;0.01;0.0;0.0;0.0;0.0;0.0;0.0];
+%  
+%  nn=1;
+%  j=0;
+%     
+%  for i=2:1:length(tspan)
+%      
+%   xn=I0*Jexte+w*JN*sn+we*JN*C*sn-J.*sg;
+%   xg=I0*Jexti+JN*sn-sg;
+%   rn=phie(xn);
+%   rg=phii(xg);
+%   sn=sn+dt*(-sn/taon+(1-sn)*gamma.*rn./1000.)+sqrt(dt)*sigma*randn(Nnew,1);
+%   sn(sn>1) = 1; 
+%   sn(sn<0) = 0;             
+%   sg=sg+dt*(-sg/taog+rg./1000.)+sqrt(dt)*sigma*randn(Nnew,1);
+%   sg(sg>1) = 1;        
+%   sg(sg<0) = 0;
+%   j=j+1;
+%   if j==10
+%    curr_new(nn,:)=xn'-125/310;   
+%    neuro_act(nn,:)=sn';
+%    nn=nn+1;
+%    j=0;
+%   end
+%  end
 % 
 % 
 nn=nn-1;
@@ -173,13 +173,13 @@ nn=nn-1;
 % %Friston BALLOON MODEL
 T = nn*dtt; % Total time in seconds
 
-B = BOLD(T,neuro_act(1:nn,1)'); % B=BOLD activity, bf=Foutrier transform, f=frequency range)
+B = BOLD(T,neuro_act2(1:nn,1)'); % B=BOLD activity, bf=Foutrier transform, f=frequency range)
 BOLD_act = zeros(length(B),Nnew);
 BOLD_act(:,1) = B;  
 % 
 for nnew=2:Nnew
 
-   B = BOLD(T,neuro_act(1:nn,nnew));
+   B = BOLD(T,neuro_act2(1:nn,nnew));
    BOLD_act(:,nnew) = B;
 end
 % % Downsampling and reordering removing the first 500ms
@@ -219,3 +219,4 @@ Coef_rest    = corrcoef(FC_sim, fc)
 % subplot(2,1,2)
 % plot(wee,fittcorr);
 
+save('EI_balance')

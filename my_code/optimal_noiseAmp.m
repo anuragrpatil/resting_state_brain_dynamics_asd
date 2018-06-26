@@ -9,7 +9,7 @@ bds= cell(1,length(noiseAmp));
 parfor na=1:length(noiseAmp)
     
    
-  [corr{na} maxfrNs{na} FC{na} bds{na}]=optimal_G(C,C_emp,simTime,dt,G,noiseAmp(na)); 
+  [corr{na} maxfrNs{na}  ]=optimal_G(C,C_emp,simTime,dt,G,noiseAmp(na)); 
   
   
 end

@@ -25,12 +25,12 @@ C_emp= zeros(105,105);
 
 %%%%%%%%%%%%%%%%%%%%% Parameters that are varied%%%%%%%%%%%%%
 %  G = 0:0.5:4;
-  G=0:0.05:1.5;
-%  G=0:0.03:0.5;
+%    G=0:0.05:1.5;
+  G=0.5;
 simTime = 20*60*1000; % in 1s of ms 
 dt = 0.1;
-noiseAmp=0.001:0.001:0.009;
-% noiseAmp=0.001;
+% noiseAmp=0.001:0.001:0.009;
+noiseAmp=0.001;
 corr = cell(numSubs,1);
 maxfrNsubs = cell(numSubs,1);
 FC = cell(numSubs,1);
@@ -38,7 +38,7 @@ bds = cell(numSubs,1);
 
 % parpool(20);
 currSub = C_read(:,:,9);
- for no = 1:numSubs
+ parfor no = 1:numSubs
 
 %      C_normalize(:,:,no) = C_read(:,:,no)/norm(C_read(:,:,no));
 %         C_normalize(:,:,no) = (currSub-mean(currSub(:)))/std(currSub(:));
@@ -56,7 +56,7 @@ currSub = C_read(:,:,9);
 
    
 
-    [corr{no} maxfrNsubs{no} FC{no} bds{no}]= optimal_noiseAmp(C,C_emp,simTime,dt,G,noiseAmp);
+    [corr{no} maxfrNsubs{no}  ]= optimal_noiseAmp(C,C_emp,simTime,dt,G,noiseAmp);
     
 
 
@@ -66,7 +66,7 @@ currSub = C_read(:,:,9);
 % maxFr(i)=max(maxfrNsubs{1, 1}{1, i});
 % end
  
-%save('done_for_ASD','corr','maxfrNsubs');
+save('done_for_ASD_EIC','corr','maxfrNsubs');
  
    
 

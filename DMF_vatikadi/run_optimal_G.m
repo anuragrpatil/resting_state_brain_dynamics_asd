@@ -17,12 +17,12 @@ scPath = C;
 % C_emp(isinf(C_emp))=1;
 fcPath = C_emp;
 
-startG = 0.5;
-endG = .5;
-incG = 0.5;
+startG = 1.4;
+endG = 1.4;
+incG = 1;
 fic = false;
 ffi = false;
-simTime = 20*60*100;
+simTime = 20*60*1000;
 dt = 0.1;
 noiseAmp = 0.001;
 saveFigPath = 'G_20mins_test.jpeg';
