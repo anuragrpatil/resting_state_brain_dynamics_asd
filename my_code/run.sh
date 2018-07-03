@@ -4,7 +4,7 @@
 #SBATCH -n 10
 #SBATCH --gres=gpu:0
 #SBATCH --mem-per-cpu=2048
-#SBATCH --time=1-00:00:00
+#SBATCH --time=1-100:00:00
 #SBATCH --mail-type=END
 
 module add matlab/R2017b

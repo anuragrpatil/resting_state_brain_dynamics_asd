@@ -66,11 +66,11 @@ else
 
 end
 
-t  = t(n_min:end);
-s  = x(n_min:end,1);
-fi = x(n_min:end,2);
-v  = x(n_min:end,3);
-q  = x(n_min:end,4);
+t  = t(:);
+s  = x(:,1);
+fi = x(:,2);
+v  = x(:,3);
+q  = x(:,4);
 b  = 100/Eo*vo*( k1.*(1-q) + k2*(1-q./v) + k3*(1-v) );
 clear x;
 
