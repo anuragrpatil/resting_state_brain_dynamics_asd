@@ -9,7 +9,7 @@ bds= cell(1,length(G));
 parfor g=1:length(G)
     
    
-  [corr(1,g) maxfrNs{g}  ]=DMF_main(C,C_emp,simTime,dt,G(g),noiseAmp); 
+  [corr(1,g) maxfrNs{g} FC{g} bds{g} ]=DMF_main(C,C_emp,simTime,dt,G(g),noiseAmp); 
   
   
 end

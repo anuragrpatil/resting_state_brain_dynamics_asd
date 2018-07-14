@@ -1,12 +1,12 @@
 function [S_persec frN] = DMF_eulers_explicit(T,dt,C,G,noiseAmp)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Parameters for DMF%%%%%%%%%%%%%%%%%%
-w = 0.65 ;          % wEE or w+ synpatics weight for intra area excitatory-excitatory
+w = 0.9 ;          % wEE or w+ synpatics weight for intra area excitatory-excitatory
 %  w = 1.4
 a= 270 ;
 b= 108;
 d = 0.154; 
- JN = 0.2609; % synaptic coupling for NMDA synapses
+JN = 0.2609; % synaptic coupling for NMDA synapses
 %  JN = 0.15
 gamma = 0.641;
 I0 = 0.3;
@@ -84,26 +84,7 @@ for t = 1:1:(length(T)-1)
 
 
 
-%%%%%%%%%%%%%%%%%%%inhibition control added%%%%%%%%%%%%%%%%%%%        
-%       xn=I0*Jexte+w*JN*Sn+w*JN*(C*Sn')'-J.*Sg;
-%       xg=I0*Jexti+JN*Sn-Sg;
-%       Hn = f_Hn(xn);
-%       Hg = f_Hg(xg);
-%       Sn=Sn+dt*(-Sn/taon+(1-Sn)*gamma.*Hn./1000.)+sqrt(dt)*sigma*randn(1,nAreas);
-%       Sn(Sn>1) = 1; 
-%       Sn(Sn<0) = 0;             
-%       Sg=Sg+dt*(-Sg/taog+Hg./1000.)+sqrt(dt)*sigma*randn(1,nAreas);
-%       Sg(Sg>1) = 1;        
-%       Sg(Sg<0) = 0;
-%       j=j+1;
-%       if j==10
-%        nn=nn+1; 
-%        S_persec(nn,:)=Sn;
-       
-%        frN(nn,:) = Hn;
-%        j=0;
-%       end
-% %        
+    
          
         
         
