@@ -104,7 +104,7 @@ S_persec = zeros(tend*dt,length(C),length(G));
     FC_emp = atanh(C_emp(find(tril(C_emp,-1))));
 %     FC_emp = zscore(C_emp(find(tril(C_emp,-1))));
     FC_emp(isinf(FC_emp))=1;
-    correleation = corrcoef(FC_sim(1:end),FC_emp);
+    correleation = corrcoef(FC_sim(2:end),FC_emp);
     
     correleation = correleation(1,2);
     
